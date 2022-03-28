@@ -15,6 +15,7 @@ public class Server {
         boolean run = true;
         ServerSocket serverSocket;
         Socket socket;
+        Socket socket2;
         System.out.println("Server started.");
 
         try {
@@ -22,11 +23,16 @@ public class Server {
             while (true) {
                 System.out.println("Waiting for connections!");
                 socket = serverSocket.accept();
+                socket2 = serverSocket.accept();
                 // Go
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                PrintWriter out2 = new PrintWriter(socket2.getOutputStream(), true);
                 ListenerThread in = new ListenerThread(new BufferedReader(new InputStreamReader(socket.getInputStream())));
+                ListenerThread in2 = new ListenerThread(new BufferedReader(new InputStreamReader(socket2.getInputStream())));
                 Thread listener = new Thread(in);
+                Thread listener2 = new Thread(in2);
                 listener.start();
+                listener2.start();
                 System.out.println("Client connected!");
                 Scanner tgb = new Scanner(System.in);
                 //Protocol
@@ -35,6 +41,7 @@ public class Server {
                     System.out.println("SERVER: " + msg);
                 }
                 out.close();
+                out2.close();
                 socket.close();
             }
         } catch (Exception e) {

@@ -14,10 +14,10 @@ public class Client2 {
     public static void main(String[] args) {
         String ip = (String) JOptionPane.showInputDialog(null,"IP?","Connect to..",JOptionPane.QUESTION_MESSAGE);
         int port = Integer.parseInt(JOptionPane.showInputDialog(null,"Port?","Connect to..",JOptionPane.QUESTION_MESSAGE));       ;
-        Socket socket = null;
+        Socket socket2 = null;
 
         try {
-            socket = new Socket(ip,port);
+            socket2 = new Socket(ip,port);
         } catch (Exception e) {
             System.out.println("Client failed to connect");
             System.exit(0);
@@ -26,18 +26,18 @@ public class Client2 {
         // GO
         try {
             Scanner tgb = new Scanner(System.in);
-            PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-            ListenerThread in = new ListenerThread(new BufferedReader(new InputStreamReader(socket.getInputStream())));
-            Thread listener = new Thread(in);
+            PrintWriter out2 = new PrintWriter(socket2.getOutputStream(),true);
+            ListenerThread in2 = new ListenerThread(new BufferedReader(new InputStreamReader(socket2.getInputStream())));
+            Thread listener = new Thread(in2);
             listener.start();
             boolean run = true;
             while (run) {
                 String msg = tgb.nextLine();
-                out.println(msg);
+                out2.println(msg);
             }
 
-            out.close();
-            socket.close();
+            out2.close();
+            socket2.close();
             System.out.println("Done!");
         } catch (Exception e) {
             System.out.println("Client failed to communicate");

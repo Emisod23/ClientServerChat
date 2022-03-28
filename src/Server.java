@@ -32,7 +32,7 @@ public class Server {
                 //Protocol
                 while (run) {
                     String msg = tgb.nextLine();
-                    out.println("SERVER: " + msg);
+                    System.out.println("SERVER: " + msg);
                 }
                 out.close();
                 socket.close();
